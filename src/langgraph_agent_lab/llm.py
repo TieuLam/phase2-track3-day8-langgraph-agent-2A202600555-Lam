@@ -13,6 +13,15 @@ from __future__ import annotations
 
 import os
 
+# Load variables from a local .env file so API keys are available to both the CLI
+# and pytest without manual exporting. Safe no-op if python-dotenv is missing.
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:  # pragma: no cover - optional dependency
+    pass
+
 
 def get_llm(model: str | None = None, temperature: float = 0.0):
     """Create an LLM client from environment configuration.
